@@ -5,7 +5,12 @@ from bitarray import bitarray
 HOST = "127.0.0.1"  
 PORT = 12345 
 
+def default_ver():
+    print('no verification function was given')
 
+verification_func = default_ver
+
+in_buffer = bitarray()
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 
     s.bind((HOST, PORT))
@@ -16,7 +21,12 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         while True: 
 
             data = conn.recv(1024)
+            in_buffer += bitarray(data)
             if not data:
                 break  
-            
+        # se recibió todo
+
+        # verificación
+        verification_func(in_buffer)
+
 

@@ -2,6 +2,9 @@ from pprint import pprint
 from bitarray import bitarray
 
 
+#https://pypi.org/project/bitarray/
+#https://en.wikipedia.org/wiki/Fletcher%27s_checksum
+
 def fletcher_sum(buffer):
     sum1 = 0
     sum2 = 0

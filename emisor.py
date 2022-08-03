@@ -71,3 +71,4 @@ s.close()
 print("Connection closed")
 
 plt.plot(lenghts, times_avg)
+plt.show()

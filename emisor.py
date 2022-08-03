@@ -1,7 +1,20 @@
+'''
+Universidad del valle de Guatemala
+Laboratorio 2 de redes de computadoras - esquemas de deteccion y correcion de errores
+Jorge de León - 19817
+Andres Quinto - 18288
+
+'''
 import socket
+import numpy
+from bitarray import bitarray
 
+def noise(bits):
+    my_bits = bitarray()
+    for bit in bits:
+        if bit == 0:
+            my_bits.append(1)
 
-def noise():
     return
 
 HOST = "127.0.0.1"  

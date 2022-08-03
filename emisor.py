@@ -10,7 +10,20 @@ import socket #https://docs.python.org/3/library/socket.html (Para la conexion d
 import numpy #https://numpy.org/doc/stable/reference/random/generated/numpy.random.rand.html (para el ruido)
 import binascii #https://docs.python.org/3/library/binascii.html (libreria de conversion de binario a ascii)
 import pickle
-from bitarray import bitarray #https://pypi.org/project/bitarray/ (realizar un array de bits)
+from bitarray import bitarray
+import timeit
+import matplotlib.pyplot as plt
+
+from fletcher import fletcher_sum #https://pypi.org/project/bitarray/ (realizar un array de bits)
+
+
+samples = ['Lorem ipsum dolor sit amet', 
+           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, ',
+           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.']
+
+lenghts = [len(i) for i in samples]
+
 
 HOST = "127.0.0.1"  
 PORT = 12345      
@@ -21,7 +34,7 @@ def noise(bits):
     for bit in bits:
         new_bit = int((not(bit))) if numpy.random.choice([0,1], p=[0.95,0.05]) else bit
         my_bits.append(new_bit)
-    return
+    return my_bits
 
     #Funcion para transformar de string a bits
 def string_to_bits(text, encoding='utf-8', errors='surrogatepass'):
@@ -36,14 +49,24 @@ def verification(str_):
     #Transmision
 s = socket.socket()
 s.connect((HOST,PORT))
-while True:
-    str_ = input("Escriba su mensaje :): ")
-    my_bitarray = verification(str_)       #Verificacion del mensaje
-    # fletcher = blablabla
-    # bits = noise(fletcher + my_bitarray)   #Adicion del ruido por medio de numpy
-    print(my_bitarray)
-    s.send(bits)
-    if(str == "Bye" or str == "bye"):
-        break
+times_avg = []
+for sample in samples:
+    m_times = []
+    for i in range(100):
+        #Verificacion del mensaje
+
+        bits = bitarray(bytes(sample, 'ascii'))
+
+        t1 = timeit.default_timer()
+        bits += fletcher_sum(bits)
+        t2 = timeit.default_timer()
+
+        m_times.append(t2-t1)
+
+        s.send(noise(bits))
+    
+    times_avg.append(sum(m_times)/len(m_times))
 s.close()
 print("Connection closed")
+
+plt.plot(lenghts, times_avg)

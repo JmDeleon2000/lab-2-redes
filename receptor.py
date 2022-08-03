@@ -21,7 +21,10 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         while True: 
 
             data = conn.recv(1024)
-            in_buffer += bitarray(data)
+            data_bytes = bytes(str(data), 'ascii')
+            x = bitarray()
+            x.frombytes(data_bytes)
+            in_buffer += x
             if not data:
                 break  
         # se recibió todo

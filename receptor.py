@@ -1,14 +1,16 @@
 import socket
 from bitarray import bitarray
+from fletcher import fletchet_check
+
 
 
 HOST = "127.0.0.1"  
 PORT = 12345 
 
-def default_ver():
+def default_ver(a):
     print('no verification function was given')
 
-verification_func = default_ver
+verification_func = fletchet_check
 
 in_buffer = bitarray()
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:

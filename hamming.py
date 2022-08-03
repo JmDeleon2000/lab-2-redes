@@ -5,6 +5,7 @@ Laboratorio 2 de redes de computadoras - esquemas de deteccion y correcion de er
 Jorge de León - 19817
 Andres Quinto - 18288
 
+Implementacion y adaptacion del codigo de hamming: fuente https://www.geeksforgeeks.org/hamming-code-implementation-in-python/#:~:text=Hamming%20code%20is%20a%20set,Hamming%20for%20error%20correction.
 '''
 def calcRedundantBits(m):
 

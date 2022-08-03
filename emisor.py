@@ -15,7 +15,7 @@ import timeit
 import matplotlib.pyplot as plt
 
 from fletcher import fletcher_sum #https://pypi.org/project/bitarray/ (realizar un array de bits)
-
+from hamming import calcRedundantBits, posRedundantBits, calcParityBits, detectError
 
 samples = ['Lorem ipsum dolor sit amet', 
            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, ',

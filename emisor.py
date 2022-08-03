@@ -52,10 +52,11 @@ s.connect((HOST,PORT))
 times_avg = []
 for sample in samples:
     m_times = []
-    for i in range(100):
+    for i in range(50):
         #Verificacion del mensaje
 
-        bits = bitarray(bytes(sample, 'ascii'))
+        bits = bitarray()
+        bits.frombytes(bytes(sample, 'ascii'))
 
         t1 = timeit.default_timer()
         bits += fletcher_sum(bits)
